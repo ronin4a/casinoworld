@@ -1,4 +1,4 @@
-## PRIMARY INSTRUCTIONS
+# PRIMARY INSTRUCTIONS
 
 This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
@@ -19,9 +19,9 @@ difficulty/complexity.
 (7) Incorporate blockchain for bank mechanism
     See: http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/
     See: https://github.com/dvf/blockchain
-    STATUS: 
+    STATUS: commited initial repo to /pyblock
 
-## LATEST UPDATES
+# LATEST UPDATES
 
 ** TODO
   - PokerHand instantiates to the same location in memory; assigning different
@@ -39,23 +39,25 @@ difficulty/complexity.
   - update data structure of PokerHand so it's a little more elegant and less
     brute force
 
-## FUTURE THOUGHTS
+# FUTURE THOUGHTS
 
 * craps
 * baccarat
+* other variations of poker
+* blackjack
 
-## BASIC DATA STRUCTURES
+# BASIC DATA STRUCTURES
 
-# Two atomic classes
+## Two atomic classes
 * Chip
 * Card
 
-# Two parent classes
+## Two parent classes
 * Bank = composed of many Chips
 * Deck = composed of many Cards
 * Player = holds Chips and plays a Hand
 
-# Two children classes
+## Two children classes
 * Stack = individual stack of Chips (from Bank)
 * Pot = Chips at stake for current hand
 * Hand = individual hand of Chips (from Deck)
