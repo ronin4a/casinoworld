@@ -3,22 +3,22 @@
 This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
 
-* (1) The basic program should deal cards and assess poker hands.
-    STATUS: ONGOING
-* (2) Incorporate betting.
-    STATUS: 
-* (3) Upgrade basic program to simulate Texas Hold 'Em.
-    STATUS: 
+* (1) The basic program should deal cards and assess poker hands.<br />
+    STATUS: ONGOING<br />
+* (2) Incorporate betting.<br />
+    STATUS: <br />
+* (3) Upgrade basic program to simulate Texas Hold 'Em.<br />
+    STATUS: <br />
 * (4) Incorporate poker odds and a suggestion engine for the "best" play to make.
-    Incorporate Kelly Criterion.
+    Incorporate Kelly Criterion.<br />
     STATUS: 
-* (5) Program an AI that plays heads up limit hold em.
+* (5) Program an AI that plays heads up limit hold em.<br />
     STATUS: 
-* (6) Incorporate Bowling paper (see 'holdem.pdf' in this folder)
+* (6) Incorporate Bowling paper (see 'holdem.pdf' in this folder)<br />
     STATUS: 
-* (7) Incorporate blockchain for bank mechanism
-    See: http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/
-    See: https://github.com/dvf/blockchain
+* (7) Incorporate blockchain for bank mechanism<br />
+    See: http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/<br />
+    See: https://github.com/dvf/blockchain<br />
     STATUS: commited initial repo to /pyblock
 
 # LATEST UPDATES
