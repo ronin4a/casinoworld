@@ -88,12 +88,12 @@ class Hand(object):
       """Assumes only one straight flush within a Hand is possible. There should
          not be another suit within the Hand with a count of 5. Additionally,
          there should not be another straight in the Hand."""
-      kicker_suit = self.flush_kicker()
-      kicker_rank = self.straight_kicker()
-      kicker = self.find_card(kicker_suit, kicker_rank)
+      #TODO - need to find straight flush kicker; not as simple as intersectio
+      #       of straight and flush
       return(Hand.rank['straight flush'], kicker.card_value())
+    if self.has_fourOfAKind():
+      return(Hand.rank['four of a kind'], self.generic_kicker(4))
     return False
-    #TODO - remaining cases
 
   def find_card(self, suit=0, rank=2):
     """Basic function for returning the Card in self.cards, given the suit and
