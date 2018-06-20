@@ -1,12 +1,3 @@
-""" Basic Card Object definition.
-
-    A card can be anything in classic 52-deck card deck.
-
-    This class assumes we are only dealing with ONE deck; hence only __lt__
-    and __gt__ are defined.
-
-    """
-
 class Card(object):
   """ Represents a standard playing card."""
 
@@ -33,12 +24,28 @@ class Card(object):
            13: "King",
            14: "Ace"}
 
+  """Basic functions."""
 
   def __init__(self, suit=None, rank=None):
+    """Initialize Card object. This is the most atomic unit for all games in
+       Casino World. A few issues we must address:
+       
+        - no valid cards allowed
+        - default values assigned if an empty Card is attempted to be
+          initialized
+        - copies of the same Card are allowed to exist in the Casino, depending
+          on rules of the Game being played
+
+      """
+
     if (suit == None):
       suit = 0
     if (rank== None):
       rank = 2
+    
+    # if (rank not in range(0,4)) or (suit not in range(2,15)):
+     #  return
+
     self.suit = suit
     self.rank = rank
 
@@ -67,53 +74,18 @@ class Card(object):
 
     return(self_tmp > other_tmp)
 
-class Hand(Card):
-  """ Child of Hand
-      
-      PokerHand is initialized in Hand as a means of investigating and returning
-      a label for the type of poker hand the cards being assessed have.
+  """Advanced functions."""
 
-      They will also return a ranking. Default ranking = 0 (no hand)
+  def card_value(self):
+    """Returns value of the card, based on suit and rank. Each of these
+       properties are respectively ranked by their keys in the local dicts ranks
+       and values."""
 
-      """
+    return(13*self.suit + (self.rank-2))
 
-  rank = {'none': 0, # has nothing
-          'pair': 1, # max subranking = 13 (top pair)
-          'two pair': 2, # max subranking = 13 (top pair)
-          'three of a kind': 3, # max subranking = 13 (top card)
-          'straight': 4, # max subranking = 13 (top card)
-          'flush': 5, # max subranking = 4 (top suit)
-          'full house': 6, # max subranking = 13 (top card)
-          'four of a kind': 7, # max subranking = 13 (top card)
-          'straight flush': 8} # max subranking = 52 (top suit + card)
-
-  # Dict used to represent count of suits and ranks. Default count = 0.
-  count_suits = {0: 0,
-                 1: 0,
-                 2: 0,
-                 3: 0}
-
-  count_ranks = {0: 0,
-                 1: 0,
-                 2: 0,
-                 3: 0,
-                 4: 0,
-                 5: 0,
-                 6: 0,
-                 7: 0,
-                 8: 0,
-                 9: 0,
-                 10: 0,
-                 11: 0,
-                 12: 0,
-                 13: 0}
-
-  def __init__(self, cards=None):
-    """Initialize a Hand, which is just a list of Card objects."""
-
-    self.cards = []
-
-    if (cards != None):
-      self.cards.append(cards)
-
-    self.rank = 0
+  def face_value(self, card_value=0):
+    """Given a card_value int, returns corresponding face value tuple,
+       representing a Card."""
+    face_suit = int(card_value/13)
+    face_rank = card_value%13
+    return(face_suit, face_rank)

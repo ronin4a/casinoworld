@@ -4,18 +4,18 @@ This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
 
 * (1) The basic program should deal cards and assess poker hands.<br />
-    STATUS: ONGOING<br />
+    STATUS: ONGOING
 * (2) Incorporate betting.<br />
-    STATUS: <br />
+    STATUS: pyblock created; mechanism for Game and Bet
 * (3) Upgrade basic program to simulate Texas Hold 'Em.<br />
-    STATUS: <br />
+    STATUS: 
 * (4) Incorporate poker odds and a suggestion engine for the "best" play to make.
-    Incorporate Kelly Criterion.<br />
+      Incorporate Kelly Criterion.<br />
     STATUS: 
 * (5) Program an AI that plays heads up limit hold em.<br />
     STATUS: 
 * (6) Incorporate Bowling paper (see 'holdem.pdf' in this folder)<br />
-    STATUS: 
+    STATUS: src code study required; currently not in pdf
 * (7) Incorporate blockchain for bank mechanism<br />
     See: http://adilmoujahid.com/posts/2018/03/intro-blockchain-bitcoin-python/<br />
     See: https://github.com/dvf/blockchain<br />
@@ -23,21 +23,23 @@ difficulty/complexity.
 
 # LATEST UPDATES
 
-TODO
-  - PokerHand instantiates to the same location in memory; assigning different
-    cards :=> the count persists...incorrect self.label created (see deck_test)
-  - add comparison functions for PokerHand (to figure out who the winner is)
-  - assess # of players, deal hands, check a winner
+UPDATES
+* cleaned up all class definitions and functions; atomic objects have been
+  simplified, and cleaner functions and ranking have been implemented
+  - Note: hand.py -> self.ranks_in_hand() creats local dict for each call; restructure
+          so only one instance of this dict is held in memory. (First confirm
+          that this assumption is true.)
+* added logic for calculating kickers
 
-* updated deck.py
-  - all PokerHand checks pass (functionally)
-* ...however, next steps:
-  - get basic poker game analyzed (rankings work)
-  - set up mechanics of game:
-    - cmp two PokerHands
-    - dealing Cards
-  - update data structure of PokerHand so it's a little more elegant and less
-    brute force
+TODO
+* finish hand_value function
+* use lambda functions to calculate kicker?
+* inheritance Card -> Hand?
+* include Exceptions or warning/error for app-specific exceptions; use this as a
+  means of error checking
+  - e.g. throw exception for invalid Card object
+* add comparison functions for PokerHand (to figure out who the winner is)
+* assess # of players, deal hands, check a winner
 
 # FUTURE THOUGHTS
 
