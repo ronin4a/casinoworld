@@ -85,14 +85,25 @@ class Hand(object):
         kicker = card
 
     if self.has_staightFlush():
-      """Assumes only one straight flush within a Hand is possible. There should
-         not be another suit within the Hand with a count of 5. Additionally,
-         there should not be another straight in the Hand."""
-      #TODO - need to find straight flush kicker; not as simple as intersectio
-      #       of straight and flush
-      return(Hand.rank['straight flush'], kicker.card_value())
+      return(Hand.rank['straight flush'], kicker.straightflush_kicker())
     if self.has_fourOfAKind():
       return(Hand.rank['four of a kind'], self.generic_kicker(4))
+    if self.has_fullHouse():
+      """Note: want the kicker among the trips."""
+      return(Hand.rank['full house'], self.generic_kicker(3))
+    if self.has_flush():
+      return(Hand.rank['flush'], self.flush_kicker())
+    if self.has_straight():
+      return(Hand.rank['straight'], self.flush_straight())
+    if self.has_threeOfAKind():
+      return(Hand.rank['three of a kind'], self.generic_kicker(3))
+    if self.has_twoPair():
+      return(Hand.rank['two pair'], self.generic_kicker(2))
+    if self.has_pair():
+      return(Hand.rank['pair'], self.generic_kicker(2))
+    else:
+      return(Hand.rank['none'], self.generic_kicker(1))
+    # Catch all
     return False
 
   def find_card(self, suit=0, rank=2):
@@ -102,6 +113,35 @@ class Hand(object):
       if card.suit == suit and card.rank == rank:
         return card
     return False
+
+  def straightflush_kicker(self):
+    """Straight flush kicker = highest flush first, then highest straight
+       kicker."""
+
+    flush_suit = self.flush_kicker().suit
+
+    straight_cards = []
+    for card in self.cards:
+      if card.suit == flush_suit:
+        straight_cards.append(card.rank)
+
+    straight_cards = list(set(straight_cards))
+    straight_cards.sort(reverse=True)
+
+    try:
+      high_rank = straight_cards[0]
+    except IndexError as e:
+      return("Error - no straight cards found. Please investigate.")
+
+    for i in range(0, len(straight_cards)-5):
+      if (straight_cards[i]-4) == straight_cards[i+4]:
+        high_rank = straight_cards[i]
+        break
+
+    kicker = self.find_card(flush_suit, high_rank)
+
+    return kicker
+
 
   def straight_kicker(self):
     """Assuming we have a straight, return the kicker card for the straight.
