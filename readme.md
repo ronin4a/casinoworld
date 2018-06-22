@@ -24,15 +24,13 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-* cleaned up all class definitions and functions; atomic objects have been
-  simplified, and cleaner functions and ranking have been implemented
-  - Note: hand.py -> self.ranks_in_hand() creats local dict for each call; restructure
-          so only one instance of this dict is held in memory. (First confirm
-          that this assumption is true.)
-* added logic for calculating kickers
+- completed Hand.py (for now)
 
 TODO
-* finish hand_value function
+* test Hand class via running a Game
+* Note: hand.py -> self.ranks_in_hand() creats local dict for each call; restructure
+        so only one instance of this dict is held in memory. (First confirm
+        that this assumption is true.)
 * use lambda functions to calculate kicker?
 * inheritance Card -> Hand?
 * include Exceptions or warning/error for app-specific exceptions; use this as a
