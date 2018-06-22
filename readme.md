@@ -41,6 +41,9 @@ TODO
 * add comparison functions for PokerHand (to figure out who the winner is)
 * assess # of players, deal hands, check a winner
 
+GENERAL CONSIDERATIONS
+* security issues; chaos monkey this so no cheating can occur
+
 # FUTURE THOUGHTS
 
 * craps
