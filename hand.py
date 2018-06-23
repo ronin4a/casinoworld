@@ -2,7 +2,6 @@ from card import Card
 
 class Hand(object):
 
-
   """Local variables, used for ranking the Hand."""
 
   rank = {'none': 0, # has nothing
@@ -14,28 +13,6 @@ class Hand(object):
           'full house': 6, # max subranking = 13 (top card)
           'four of a kind': 7, # max subranking = 13 (top card)
           'straight flush': 8} # max subranking = 52 (top suit + card)
-
-  # Dict used to represent count of suits and ranks. Default count = 0.
-  count_suits = {0: 0,
-                 1: 0,
-                 2: 0,
-                 3: 0}
-
-  count_ranks = {0: 0,
-                 1: 0,
-                 2: 0,
-                 3: 0,
-                 4: 0,
-                 5: 0,
-                 6: 0,
-                 7: 0,
-                 8: 0,
-                 9: 0,
-                 10: 0,
-                 11: 0,
-                 12: 0,
-                 13: 0,
-                 14: 0}
 
 
   """Basic functions."""
@@ -84,9 +61,9 @@ class Hand(object):
       if card.card_value() > kicker.card_value():
         kicker = card
 
-    if self.has_staightFlush():
+    if self.has_straightFlush():
       return(Hand.rank['straight flush'], kicker.straightflush_kicker())
-    if self.has_fourOfAKind():
+    if self.has_4ofAKind():
       return(Hand.rank['four of a kind'], self.generic_kicker(4))
     if self.has_fullHouse():
       """Note: want the kicker among the trips."""
@@ -94,10 +71,10 @@ class Hand(object):
     if self.has_flush():
       return(Hand.rank['flush'], self.flush_kicker())
     if self.has_straight():
-      return(Hand.rank['straight'], self.flush_straight())
-    if self.has_threeOfAKind():
+      return(Hand.rank['straight'], self.straight_kicker())
+    if self.has_3ofAKind():
       return(Hand.rank['three of a kind'], self.generic_kicker(3))
-    if self.has_twoPair():
+    if self.has_2Pair():
       return(Hand.rank['two pair'], self.generic_kicker(2))
     if self.has_pair():
       return(Hand.rank['pair'], self.generic_kicker(2))
@@ -212,6 +189,7 @@ class Hand(object):
         kicker_ranks.append(rank)
 
     kicker_ranks.sort(reverse=True)
+
     try:
       high_rank = kicker_ranks[0]
     except IndexError as e:
@@ -242,8 +220,7 @@ class Hand(object):
   def __gt__(self, other):
     return
 
-  #TODO check this
-  def __et__(self, other):
+  def __eq__(self, other):
     return
 
 
@@ -288,7 +265,7 @@ class Hand(object):
 
   def check_multiple_ranks(self, num=1):
     """Template for checking for num instances of a rank in the Hand."""
-    return(num in self.ranks_in_hand())
+    return(num in self.ranks_in_hand().values())
 
   def has_pair(self):
     """Check for a pair."""

@@ -15,14 +15,29 @@ def main():
   player1 = Hand()
   player2 = Hand()
 
+  c = Card(0,2)
+  player1.add_card(c)
+  c = Card(1,2)
+  player1.add_card(c)
+  c = Card(2,2)
+  player1.add_card(c)
+  c = Card(3,2)
+  player1.add_card(c)
+  c = Card(3,7)
+  player1.add_card(c)
+  
   for i in range(0,5):
-    c = d.pop_card()
-    player1.add_card(c)
+    # c = d.pop_card()
+    # player1.add_card(c)
     c = d.pop_card()
     player2.add_card(c)
 
   print(player1)
-  print(player2)
+  # print(player1.ranks_in_hand())
+  # print(player1.has_4ofAKind())
+  print(player1.hand_value())
+  # print(player2)
+  # print(player2.hand_value())
 
 if __name__ == "__main__":
   main()
