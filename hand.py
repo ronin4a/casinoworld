@@ -62,7 +62,7 @@ class Hand(object):
         kicker = card
 
     if self.has_straightFlush():
-      return(Hand.rank['straight flush'], kicker.straightflush_kicker())
+      return(Hand.rank['straight flush'], self.straightflush_kicker())
     if self.has_4ofAKind():
       return(Hand.rank['four of a kind'], self.generic_kicker(4))
     if self.has_fullHouse():
@@ -134,8 +134,8 @@ class Hand(object):
     straight_ranks = list(set(self.ranks_in_hand()))
     straight_ranks.sort(reverse=True)
 
-    for i in range(0, len(straight_ranks)-5):
-      if straight_ranks[i+4] == straight_ranks[i]-4:
+    for i in range(0, len(straight_ranks)-4):
+      if straight_ranks[i+4] == (straight_ranks[i]-4):
         kicker_rank = straight_ranks[i]
         break
 
@@ -280,16 +280,11 @@ class Hand(object):
     return(self.check_multiple_ranks(4))
 
 
-  def has_flush(self):
-    """Check for 5 cards with the same suit in the hand."""
-    return(5 in self.suits_in_hand())
-
-
   def has_2Pair(self):
     """Check for 2 different pairs in hand."""
     if self.has_pair() is False:
       return False
-    count_pairs = 0
+    count_pairs = 1
     for num_rank in self.ranks_in_hand().keys():
       if num_rank == 2:
         count_pairs += 1
@@ -309,6 +304,11 @@ class Hand(object):
       if (ranks[i-1] + 1) != ranks[i]:
         return False
     return True
+
+
+  def has_flush(self):
+    """Check for 5 cards with the same suit in the hand."""
+    return(5 in self.suits_in_hand().values())
 
 
   def has_fullHouse(self):

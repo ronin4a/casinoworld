@@ -17,13 +17,13 @@ def main():
 
   c = Card(0,2)
   player1.add_card(c)
-  c = Card(1,2)
+  c = Card(0,3)
   player1.add_card(c)
-  c = Card(2,2)
+  c = Card(0,4)
   player1.add_card(c)
-  c = Card(3,2)
+  c = Card(0,5)
   player1.add_card(c)
-  c = Card(3,7)
+  c = Card(0,6)
   player1.add_card(c)
   
   for i in range(0,5):
@@ -34,8 +34,14 @@ def main():
 
   print(player1)
   # print(player1.ranks_in_hand())
-  # print(player1.has_4ofAKind())
-  print(player1.hand_value())
+  print(player1.has_straight())
+  print(player1.suits_in_hand())
+  print(player1.has_straightFlush())
+  # print("checking pair %s" %(player1.check_multiple_ranks(2)))
+  value, card = player1.hand_value()
+
+  print(value)
+  print(card)
   # print(player2)
   # print(player2.hand_value())
 
