@@ -1,5 +1,8 @@
 from card import Card
 
+#TODO
+# - incorporate hole card
+
 class Hand(object):
 
   """Local variables, used for ranking the Hand."""
@@ -17,25 +20,30 @@ class Hand(object):
 
   """Basic functions."""
 
-  def __init__(self, cards=None):
+  def __init__(self, cards=None, is_hole=False):
     """Initialize a Hand, which is just a list of Card objects."""
 
+    self.__hole_cards = []
     self.cards = []
 
     if (cards != None):
+      if is_hole is True:
+        self.__hole_cards.extend(cards)
       self.cards.extend(cards)
-
-    self.rank = 0
 
   def __str__(self):
     """Print list of Card objects in Hand."""
 
     print_cards = []
-    for card in self.cards:
+    for card in self.__hole_cards:
       print_cards.append(str(card))
-    return("Hand rank: %s\n%s" %(self.rank, print_cards))
 
-  def add_card(self, card=None):
+    hand_rank, kicker_card = self.hand_value()
+
+    return("Hand rank: %s\nKicker card: %s\n%s" %(hand_rank, kicker_card, \
+                                                  print_cards))
+
+  def add_card(self, card=None, is_hole=False):
     """Add a Card object as part of this Hand.
 
        Note: The same Card can exist in multiple objects (other Hands, Decks,
@@ -47,6 +55,8 @@ class Hand(object):
     if card == None:
       return("Error: Adding no cards to hand.")
 
+    if is_hole is True:
+      self.__hole_cards.append(card)
     self.cards.append(card)
 
   def hand_value(self):
