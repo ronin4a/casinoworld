@@ -4,7 +4,7 @@ This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
 
 * (1) The basic program should deal cards and assess poker hands.<br />
-    STATUS: ONGOING
+    STATUS: Simple card dealing and presentation + individual scoring.
 * (2) Incorporate betting.<br />
     STATUS: pyblock created; mechanism for Game and Bet
 * (3) Upgrade basic program to simulate Texas Hold 'Em.<br />
@@ -24,10 +24,11 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- completed Hand.py (for now)
+- simulated hold em game with output and individual scoring
 
 TODO
-* test Hand class via running a Game
+* thorough testing on dealing + hand assessments (noticed that a straight deal
+  on the river wasn't scored as such)
 * Note: hand.py -> self.ranks_in_hand() creats local dict for each call; restructure
         so only one instance of this dict is held in memory. (First confirm
         that this assumption is true.)
