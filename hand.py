@@ -168,7 +168,7 @@ class Hand(object):
     all_suits = self.suits_in_hand()
 
     for suit in all_suits:
-      if all_suits[suit] == 5:
+      if all_suits[suit] >= 5:
         flush_suits[suit] = []
 
     for card in self.cards:
@@ -318,8 +318,7 @@ class Hand(object):
 
   def has_flush(self):
     """Check for 5 cards with the same suit in the hand."""
-    return(5 in self.suits_in_hand().values())
-
+    return(max(self.suits_in_hand().values()) >= 5)
 
   def has_fullHouse(self):
     """Check for full house in hand."""

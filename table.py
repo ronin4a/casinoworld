@@ -23,7 +23,11 @@ class Table(object):
     for card in self.table_cards:
       print_cards.append(str(card))
 
-    return("%s" %(print_cards))
+    debug_cards = []
+    for card in self.__burn_cards:
+      debug_cards.append(str(card))
+
+    return("%s | %s" %(debug_cards, print_cards))
 
   def add_burn_card(self, card=None):
     """Add a Card object to the burn pile."""
