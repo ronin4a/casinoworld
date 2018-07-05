@@ -66,6 +66,10 @@ class Hand(object):
   def add_card(self, card=None, is_hole=False):
     """Add a Card object as part of this Hand.
 
+       is_hole flag needed to identify cards that are actually owned by the
+       Hand; this is to distinguish these cards from community cards (e.g. the
+       cards on the table in a game of Texas Hold Em)
+
        Note: The same Card can exist in multiple objects (other Hands, Decks,
              etc. This flexibility is provided with Hold Em Poker in mind, where
              Card objects on the Table are shared in multiple Hands between
