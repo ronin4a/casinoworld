@@ -3,7 +3,18 @@ from hand import *
 from card import *
 from table import *
 
-_TESTING = True
+_TESTING = False
+
+def testing(d):
+  if _TESTING:
+    # Testing - straight flush doesn't seem to work?
+    for i in range(0,9):
+      if (i > 6):
+        c = Card(1,i+3)
+        d.add_card(c)
+      c = Card(1,i+3)
+      d.add_card(c)
+  print(d)
 
 def main():
   """Testing all current classes with a sample Poker game.
@@ -17,12 +28,7 @@ def main():
   d.shuffle()
   t = Table()
 
-  # Testing - straight flush doesn't seem to work?
-  for i in range(0,9):
-    c = Card(1,i+3)
-    d.add_card(c)
-
-  print(d)
+  testing(d)
 
   # Initialize players
   player1 = Hand()
@@ -91,6 +97,14 @@ def main():
   print()
   print("Player 2: %s" %(player2))
   input()
+
+  # Assess winner
+  if (player1.hand_value() > player2.hand_value()):
+    print("Player 1 won with %s." %(player1))
+  elif (player1.hand_value() < player2.hand_value()):
+    print("Player 2 won with %s." %(player2))
+  else:
+    print("Draw.")
 
 if __name__ == "__main__":
   main()
