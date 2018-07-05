@@ -43,6 +43,26 @@ class Hand(object):
     return("Hand rank: %s\nKicker card: %s\n%s" %(hand_rank, kicker_card, \
                                                   print_cards))
 
+
+  def __len__(self):
+    return(len(self.__hole_cards))
+
+  #TODO Are these needed?
+  def __lt__(self, other):
+    return
+
+
+  def __gt__(self, other):
+    return
+
+
+  def __eq__(self, other):
+    return
+
+
+  """Game functions."""
+
+
   def add_card(self, card=None, is_hole=False):
     """Add a Card object as part of this Hand.
 
@@ -58,6 +78,16 @@ class Hand(object):
     if is_hole is True:
       self.__hole_cards.append(card)
     self.cards.append(card)
+
+  def return_cards(self):
+    """Empty all cards and pop hole cards."""
+    self.cards = []
+    return_hole_cards = []
+    for i in range(0, len(self.__hole_cards)):
+        return_hole_cards.append(self.__hole_cards.pop())
+
+    #TODO check to make sure all self.cards are empty
+    return(return_hole_cards)
 
   def hand_value(self):
     """Hand value is calculated using a tuple of the Hand.rank (provided above)
@@ -93,6 +123,11 @@ class Hand(object):
     # Catch all
     return False
 
+
+  """Private functions."""
+  #TODO make these inaccessible to anything outside this Class
+
+
   def find_card(self, suit=0, rank=2):
     """Basic function for returning the Card in self.cards, given the suit and
        rank values."""
@@ -100,6 +135,7 @@ class Hand(object):
       if card.suit == suit and card.rank == rank:
         return card
     return False
+
 
   def straightflush_kicker(self):
     """Straight flush kicker = highest flush first, then highest straight
@@ -222,18 +258,6 @@ class Hand(object):
     return kicker
 
 
-  """Comparison functions."""
-
-  def __lt__(self, other):
-    return
-
-  def __gt__(self, other):
-    return
-
-  def __eq__(self, other):
-    return
-
-
   """Card counting functions."""
 
   def suits_in_hand(self):
@@ -272,6 +296,7 @@ class Hand(object):
 
 
   """Poker hand assessment functions."""
+
 
   def check_multiple_ranks(self, num=1):
     """Template for checking for num instances of a rank in the Hand."""

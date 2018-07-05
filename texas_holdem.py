@@ -27,6 +27,7 @@ def main():
   d = Deck()
   d.shuffle()
   t = Table()
+  print("Deck has %s cards." %(len(d)))
 
   testing(d)
 
@@ -99,12 +100,28 @@ def main():
   input()
 
   # Assess winner
+  print("*** WINNER IS.... ***")
   if (player1.hand_value() > player2.hand_value()):
-    print("Player 1 won with %s." %(player1))
+    print("Player 1 won with\n%s" %(player1))
   elif (player1.hand_value() < player2.hand_value()):
-    print("Player 2 won with %s." %(player2))
+    print("Player 2 won with\n%s" %(player2))
   else:
     print("Draw.")
+    print("%s %s" %(player1, player2))
+  print()
+
+  # Return cards to deck
+  print("*** RETURNING CARDS TO DECK ***")
+
+  return_cards = []
+  return_cards.extend(player1.return_cards())
+  return_cards.extend(player2.return_cards())
+  return_cards.extend(t.return_cards())
+  for i in range(0, len(return_cards)):
+    d.add_card(return_cards.pop())
+
+  #TODO throw exception if card count != 52
+  print(len(d))
 
 if __name__ == "__main__":
   main()

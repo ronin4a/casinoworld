@@ -31,6 +31,9 @@ class Deck(object):
     # return("%s" %('\n'.join(res)))
     return("%s" %(res))
 
+  def __len__(self):
+    return(len(self.cards))
+
   def len(self):
     """Returns # of cards in the Deck."""
     return(len(self.cards))

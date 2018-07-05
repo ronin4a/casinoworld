@@ -27,7 +27,7 @@ class Table(object):
     for card in self.__burn_cards:
       debug_cards.append(str(card))
 
-    return("%s | %s" %(debug_cards, print_cards))
+    return("Hole: %s\nTable: %s" %(debug_cards, print_cards))
 
   def add_burn_card(self, card=None):
     """Add a Card object to the burn pile."""
@@ -44,4 +44,15 @@ class Table(object):
       return("Error: Adding no cards to table.")
 
     self.table_cards.append(card)
+
+  def return_cards(self):
+    """Empty all cards and pop hole cards."""
+    return_cards = []
+    for i in range(0, len(self.__burn_cards)):
+        return_cards.append(self.__burn_cards.pop())
+    for i in range(0, len(self.table_cards)):
+        return_cards.append(self.table_cards.pop())
+
+    #TODO check to make sure all self.cards are empty
+    return(return_cards)
 
