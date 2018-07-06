@@ -172,11 +172,10 @@ class HoldEm(Game):
     # check for a tie
     try:
       if (hand_values[0] == hand_values[1]):
+        print("Draw")
         return("Draw")
     except IndexError as e:
       return("There is only one hand? Critical error %s; investigate." %(e))
-      
-
 
     print("\n-------------------------------------------------------")
     print("Final scores and cards:")
@@ -191,9 +190,9 @@ class HoldEm(Game):
 
     return winning_player
 
+
   def clear_table(self):
     """Settle all bets, clear players from the game."""
-    for player in self.players:
-      self.players.pop(player)
+    self.players.clear()
 
     return("Game ended.")
