@@ -19,6 +19,9 @@ class Game(object):
        Note that there should be NO players initialized in an instance of
        a Game. They have to be explicitly added.
 
+       This is an instance of ONLY one round of a given game. Players are
+       allowed to come in and out of a game.
+
        """
 
     self.deck = Deck()
@@ -68,7 +71,10 @@ class HoldEm(Game):
     return("-------------------------------------------------------\n")
 
 
-  def add_player_to_game(self, p, name=""):
+  """Player mechanics."""
+
+
+  def add_player(self, p, name=""):
     """Add player p (represented by Class Hand) to current game. CHeck to
        make sure player name is unique."""
     if name=="":
@@ -81,6 +87,16 @@ class HoldEm(Game):
              %(name))
 
     return("Player %s added." %(name))
+
+
+  def fold_player(self, player):
+    """Player folds :=> player is removed from the HoldEm game."""
+    try:
+      self.players.pop(player)
+    except KeyError as e:
+      print("No player found; error %s" %(e))
+
+    return("Player %s folds." %(player))
 
 
   """Basic game mechanics."""
@@ -107,7 +123,7 @@ class HoldEm(Game):
       for player in self.players:
         self.players[player].add_card(c)
 
-    return
+    return("Cards dealt.")
 
 
   def flop(self):
@@ -116,7 +132,7 @@ class HoldEm(Game):
        - 3 cards to table
        """
     self.deal_holdem(3)
-    return "Flop dealt."
+    return("Flop dealt.")
 
 
   def turn(self):
@@ -125,7 +141,7 @@ class HoldEm(Game):
        - 1 cards to table
        """
     self.deal_holdem(1)
-    return "Turn dealt."
+    return("Turn dealt.")
 
 
   def river(self):
@@ -134,7 +150,7 @@ class HoldEm(Game):
        - 1 cards to table
        """
     self.deal_holdem(1)
-    return "River dealt."
+    return("River dealt.")
 
 
   """End of game mechanics."""
@@ -153,11 +169,20 @@ class HoldEm(Game):
     hand_values.sort(reverse=True)
     winning_player = ranked_players[hand_values[0]]
 
+    # check for a tie
+    try:
+      if (hand_values[0] == hand_values[1]):
+        return("Draw")
+    except IndexError as e:
+      return("There is only one hand? Critical error %s; investigate." %(e))
+      
+
+
     print("\n-------------------------------------------------------")
     print("Final scores and cards:")
     for player in self.players:
       score, card = self.players[player].hand_value()
-      print("%s has %s %s" %(player, score, card))
+      print("%s has score %s; kicker %s" %(player, score, card))
     print("-------------------------------------------------------\n")
 
     print("\n-------------------------------------------------------")
@@ -165,3 +190,10 @@ class HoldEm(Game):
     print("-------------------------------------------------------\n")
 
     return winning_player
+
+  def clear_table(self):
+    """Settle all bets, clear players from the game."""
+    for player in self.players:
+      self.players.pop(player)
+
+    return("Game ended.")
