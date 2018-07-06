@@ -69,7 +69,8 @@ class HoldEm(Game):
 
 
   def add_player_to_game(self, p, name=""):
-    """Add player p (represented by Class Hand) to current game."""
+    """Add player p (represented by Class Hand) to current game. CHeck to
+       make sure player name is unique."""
     if name=="":
       name = "Player" + str(len(self.players) + 1)
       self.players[name] = p
@@ -142,19 +143,25 @@ class HoldEm(Game):
   def find_winners(self):
     """Calculate the winning score and return a list of winning players with
        that score."""
-    winning_players = []
-    max_hand_value = 0
-
-    # Calculate highest hand value
-    for player in self.players:
-      current_player_value = self.players[player].hand_value()
-      if current_player_value >= max_hand_value:
-        max_hand_value = current_player_value
+    ranked_players = {}
+    hand_values = []
 
     for player in self.players:
-      current_player_value = self.players[player].hand_value()
-      if current_player_value = max_hand_value:
-        winning_players.append(self.players[player])
+      hand_values.append(self.players[player].hand_value())
+      ranked_players[self.players[player].hand_value()] = player
 
-    return winning_players
+    hand_values.sort(reverse=True)
+    winning_player = ranked_players[hand_values[0]]
 
+    print("\n-------------------------------------------------------")
+    print("Final scores and cards:")
+    for player in self.players:
+      score, card = self.players[player].hand_value()
+      print("%s has %s %s" %(player, score, card))
+    print("-------------------------------------------------------\n")
+
+    print("\n-------------------------------------------------------")
+    print("The winner is %s" %(winning_player))
+    print("-------------------------------------------------------\n")
+
+    return winning_player
