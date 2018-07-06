@@ -4,7 +4,7 @@ This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
 
 * (1) The basic program should deal cards and assess poker hands.<br />
-    STATUS: Simple card dealing and presentation + individual scoring.
+    STATUS: Dealing + winner logic created.
 * (2) Incorporate betting.<br />
     STATUS: pyblock created; mechanism for Game and Bet
 * (3) Upgrade basic program to simulate Texas Hold 'Em.<br />
@@ -24,14 +24,17 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- simulated hold em game with output and individual scoring
+- complete HoldEm Class:
+  x wrote and did initial testing for find_winners function in Game Class
+  x tested multiplayer (n > 2) scoring
 
 TODO
-* thorough testing on dealing + hand assessments (noticed that a straight deal
-  on the river wasn't scored as such)
-* Note: hand.py -> self.ranks_in_hand() creats local dict for each call; restructure
-        so only one instance of this dict is held in memory. (First confirm
-        that this assumption is true.)
+* complete HoldEm Class:
+  - test Game:find_winners() and create full game mechanics
+  - maybe use turn deal_holdem as a decorator
+* port logic over to functions (rather than body of main)
+* make a list of exceptions and error checks; include in the Class files
+* unicode cards for display
 * use lambda functions to calculate kicker?
 * inheritance Card -> Hand?
 * include Exceptions or warning/error for app-specific exceptions; use this as a
@@ -42,6 +45,13 @@ TODO
 
 GENERAL CONSIDERATIONS
 * security issues; chaos monkey this so no cheating can occur
+* how to assign true ownership of a Card object; not enough to just have an
+  array point to the Card objects (see hand.py)
+* adding players = dict of a player account:Hands; tie in player accounts to
+  Flask logins and accounts on pyblock; this will require additional backend
+  db management
+* how to concurrently run various Games in parallel; note that the same player
+  can be involved in different Games, if required
 
 # FUTURE THOUGHTS
 
@@ -52,17 +62,9 @@ GENERAL CONSIDERATIONS
 
 # BASIC DATA STRUCTURES
 
-## Two atomic classes
-* Chip
-* Card
-
-## Two parent classes
-* Bank = composed of many Chips
-* Deck = composed of many Cards
-* Player = holds Chips and plays a Hand
-
-## Two children classes
-* Stack = individual stack of Chips (from Bank)
-* Pot = Chips at stake for current hand
-* Hand = individual hand of Chips (from Deck)
-
+## TO BE FILLED OUT
+This section should be filled out once Game and HoldEm classes are completed.
+It would be a good checkpoint to assess current state + clean everything up so
+we have a fully functional game engine infrastructure. Then the next 2 - 3 major
+milestones can be sketched out (implementing betting on the blockchain, db
+management, and a web app frontend = what comes to mind).
