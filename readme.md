@@ -24,9 +24,9 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- complete HoldEm Class:
-  x wrote and did initial testing for find_winners function in Game Class
-  x tested multiplayer (n > 2) scoring
+- complete HoldEm Class:<br />
+  x wrote and did initial testing for find_winners function in Game Class<br />
+  x tested multiplayer (n > 2) scoring<br />
 
 TODO
 * complete HoldEm Class:
