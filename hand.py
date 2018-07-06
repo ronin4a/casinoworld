@@ -1,9 +1,12 @@
 from card import Card
 
-#TODO
-# - incorporate hole card
-
+#TODO - restructure Hand vs PokerHand so Hand can be used as a generic class
 class Hand(object):
+
+  def __init__(self):
+    return
+
+class PokerHand(Hand):
 
   """Local variables, used for ranking the Hand."""
 
@@ -40,7 +43,7 @@ class Hand(object):
 
     hand_rank, kicker_card = self.hand_value()
 
-    return("Hand rank: %s\nKicker card: %s\n%s" %(hand_rank, kicker_card, \
+    return("PokerHand.rank: %s\nKicker card: %s\n%s" %(hand_rank, kicker_card, \
                                                   print_cards))
 
 
@@ -94,7 +97,7 @@ class Hand(object):
     return(return_hole_cards)
 
   def hand_value(self):
-    """Hand value is calculated using a tuple of the Hand.rank (provided above)
+    """Hand value is calculated using a tuple of the PokerHand.rank (provided above)
        and the maximum card.card_value for card in self.cards as the kicker.
        
        Values are assessed by checking for the biggest hands first, then
@@ -106,24 +109,24 @@ class Hand(object):
         kicker = card
 
     if self.has_straightFlush():
-      return(Hand.rank['straight flush'], self.straightflush_kicker())
+      return(PokerHand.rank['straight flush'], self.straightflush_kicker())
     if self.has_4ofAKind():
-      return(Hand.rank['four of a kind'], self.generic_kicker(4))
+      return(PokerHand.rank['four of a kind'], self.generic_kicker(4))
     if self.has_fullHouse():
       """Note: want the kicker among the trips."""
-      return(Hand.rank['full house'], self.generic_kicker(3))
+      return(PokerHand.rank['full house'], self.generic_kicker(3))
     if self.has_flush():
-      return(Hand.rank['flush'], self.flush_kicker())
+      return(PokerHand.rank['flush'], self.flush_kicker())
     if self.has_straight():
-      return(Hand.rank['straight'], self.straight_kicker())
+      return(PokerHand.rank['straight'], self.straight_kicker())
     if self.has_3ofAKind():
-      return(Hand.rank['three of a kind'], self.generic_kicker(3))
+      return(PokerHand.rank['three of a kind'], self.generic_kicker(3))
     if self.has_2Pair():
-      return(Hand.rank['two pair'], self.generic_kicker(2))
+      return(PokerHand.rank['two pair'], self.generic_kicker(2))
     if self.has_pair():
-      return(Hand.rank['pair'], self.generic_kicker(2))
+      return(PokerHand.rank['pair'], self.generic_kicker(2))
     else:
-      return(Hand.rank['none'], self.generic_kicker(1))
+      return(PokerHand.rank['none'], self.generic_kicker(1))
     # Catch all
     return False
 

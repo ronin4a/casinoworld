@@ -5,40 +5,22 @@ def join_game(h, num=2):
      players)."""
 
   for i in range(0, num):
-    p = PokerHand()
+    p = Hand()
     h.add_player(p)
 
 def play_game(h):
   h.deal()
   print(h)
 
-  h.flop()
-  print(h)
-  input()
-
-  h.turn()
-  print(h)
-  input()
-
-  h.river()
-  print(h)
-  input()
-
-  h.find_winners()
   h.clear_table()
 
 def main():
 
-  h = HoldEm()
+  h = Baccarat()
   _PLAY_GAME = True
 
   while (_PLAY_GAME == True):
-    num_players = input("How many players? ")
-    try:
-      join_game(h, int(num_players))
-    except ValueError as e:
-      print("Please enter a valid number.")
-      continue
+    join_game(h, 2)
     play_game(h)
     continue_playing = input("Do you want to keep playing (Y/N)? ")
     if (continue_playing.lower() == "y"):

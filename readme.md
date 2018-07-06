@@ -4,7 +4,7 @@ This is meant to simulate a basic game of poker, with increasing levels of
 difficulty/complexity.
 
 * (1) The basic program should deal cards and assess poker hands.<br />
-    STATUS: Dealing + winner logic created.
+    STATUS: Done for holdem
 * (2) Incorporate betting.<br />
     STATUS: pyblock created; mechanism for Game and Bet
 * (3) Upgrade basic program to simulate Texas Hold 'Em.<br />
@@ -24,14 +24,14 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- complete HoldEm Class:<br />
-  x wrote and did initial testing for find_winners function in Game Class<br />
-  x tested multiplayer (n > 2) scoring<br />
+- updated holdem.py so a full game is simulated, with user input
 
 TODO
 * complete HoldEm Class:
-  - test Game:find_winners() and create full game mechanics
   - maybe use turn deal_holdem as a decorator
+* other games (ostensibly, should be easy, if classes were designed well...)
+  - simple baccarat game
+  - simple blackjack game
 * port logic over to functions (rather than body of main)
 * make a list of exceptions and error checks; include in the Class files
 * unicode cards for display
@@ -56,7 +56,6 @@ GENERAL CONSIDERATIONS
 # FUTURE THOUGHTS
 
 * craps
-* baccarat
 * other variations of poker
 * blackjack
 

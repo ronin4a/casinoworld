@@ -34,6 +34,21 @@ class Game(object):
     return("%s" %(self.deck))
 
 
+  def add_player(self, p, name=""):
+    """Add player p (represented by Class Hand) to current game. CHeck to
+       make sure player name is unique."""
+    if name=="":
+      name = "Player" + str(len(self.players) + 1)
+      self.players[name] = p
+    elif name in self.players:
+      self.players[name] = p
+    else:
+      print("Player %s already has a hand...whaddya tryin' to pull here?" \
+             %(name))
+
+    return("Player %s added." %(name))
+
+
   def deal(self, num_cards=1):
     """Generic deal mechanism. In general, deal cards from self.deck to each
        player in self.players."""
@@ -45,7 +60,16 @@ class Game(object):
 
     return
 
+
+  def clear_table(self):
+    """Settle all bets, clear players from the game."""
+    self.players.clear()
+
+    return("Game ended.")
+
+
 class HoldEm(Game):
+
 
   """Initializing functions."""
 
@@ -72,21 +96,6 @@ class HoldEm(Game):
 
 
   """Player mechanics."""
-
-
-  def add_player(self, p, name=""):
-    """Add player p (represented by Class Hand) to current game. CHeck to
-       make sure player name is unique."""
-    if name=="":
-      name = "Player" + str(len(self.players) + 1)
-      self.players[name] = p
-    elif name in self.players:
-      self.players[name] = p
-    else:
-      print("Player %s already has a hand...whaddya tryin' to pull here?" \
-             %(name))
-
-    return("Player %s added." %(name))
 
 
   def fold_player(self, player):
@@ -191,8 +200,43 @@ class HoldEm(Game):
     return winning_player
 
 
-  def clear_table(self):
-    """Settle all bets, clear players from the game."""
-    self.players.clear()
 
-    return("Game ended.")
+class Baccarat(Game):
+
+
+  """Initializing functions."""
+
+
+  def __init__(self):
+    """Inherit generic Game.
+
+       Diffs:
+        - always two players = Bank and Player
+        - always init with two dealt cards to each
+
+       """
+    #TODO make sure that each player_id only has one unique Hand
+    super().__init__()
+
+    # Each 
+    banker = Hand()
+    player = Hand()
+    super().add_player(banker, "Bank")
+    super().add_player(player, "Player")
+    super().deal(2)
+
+
+  def __str__(self):
+    print("\n-------------------------------------------------------")
+    print("%s" %(self.table))
+    if (len(self.players) != 0):
+      for player in self.players:
+        print("\n%s:\n%s" %(player, self.players[player]))
+    return("-------------------------------------------------------\n")
+
+  """Basic game mechanics."""
+
+
+  def deal(self):
+    """Deal two cards to each player."""
+    return "Cards dealt."
