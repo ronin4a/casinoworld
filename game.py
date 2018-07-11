@@ -239,4 +239,5 @@ class Baccarat(Game):
 
   def deal(self):
     """Deal two cards to each player."""
+    super().deal(2)
     return "Cards dealt."
