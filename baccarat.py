@@ -11,6 +11,13 @@ def join_game(h, num=2):
 def play_game(h):
   h.deal(2)
   print(h)
+  print(h.does_player_get_3rd_card())
+  if h.does_player_get_3rd_card() is True:
+    h.deal_to("Player")
+  if h.does_bank_get_3rd_card() is True:
+    h.deal_to("Bank")
+  print(h)
+  input()
   h.clear_table()
 
 def main():

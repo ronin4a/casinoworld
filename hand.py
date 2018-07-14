@@ -54,6 +54,11 @@ class BaccaratHand(Hand):
 
     return("%s" %(print_cards))
 
+
+  def __len__(self):
+    return len(self.__hole_cards)
+
+
   def add_card(self, card=None, is_hole=True):
     """Add a Card object as part of this Hand.
 
@@ -91,11 +96,15 @@ class BaccaratHand(Hand):
       if card.rank == 14: # Ace
         self.score += 1
       elif card.rank >= 10: # 10 or face cards
-        self.score = self.score + 0
+        self.score += 0
       else:
         self.score += card.rank
     return self.score % 10
 
+  def return_3rd_card(self):
+    if len(self.__hole_cards) != 3:
+      return IndexError
+    return self.__hole_cards[2]
 
 class PokerHand(Hand):
 

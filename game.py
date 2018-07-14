@@ -60,6 +60,16 @@ class Game(object):
 
     return
 
+  def deal_to(self, player, num_cards=1):
+    """Deal to a single player.
+
+       Args:
+        - player = player key in self.players dict
+        - num_cards = number of cards to deal
+       """
+    __card = self.deck.pop_card()
+    self.players[player].add_card(__card, True)
+
 
   def clear_table(self):
     """Settle all bets, clear players from the game."""
@@ -234,5 +244,56 @@ class Baccarat(Game):
 				  self.players[player].hand_value()))
     return("-------------------------------------------------------\n")
 
+
   """Basic game mechanics."""
+
+
+  def does_player_get_3rd_card(self):
+    """Check for Player getting a 3rd card. The Player gets a 3rd card if:
+	- only has 2 cards
+	- the value of those cards is between 0 - 5 (inclusive)
+	"""
+    player = self.players["Player"]
+    print("Player has value %s\n" %(player.hand_value()))
+    if len(player) > 2:
+      print("Trying to inquire for > 2 card Player hand!")
+      return False
+    if player.hand_value() <= 5:
+      print("Player gets another card.")
+      return True
+
+
+  def does_bank_get_3rd_card(self):
+    """Check for Bank getting a 3rd card. The Player gets a 3rd card if:
+        - only has 2 cards
+        - the value of those cards is between 0 - 5 (inclusive)
+        """
+    bank = self.players["Bank"]
+
+    if len(bank) > 2:
+      print("Trying to inquire for > 2 card Bank hand!")
+      return False
+    elif (self.does_player_get_3rd_card() is False) and \
+         (bank.hand_value() <= 5):
+      return True
+    elif (self.does_player_get_3rd_card() is True):
+      player_3rd_card = self.players["Player"].return_3rd_card()
+      if (player_3rd_card.rank >= 9) and (bank.hand_value() <= 3):
+        return True
+      elif (player_3rd_card.rank == 8) and (bank.hand_value() <= 6):
+        return True
+      elif ((player_3rd_card.rank == 6 or player_3rd_card.rank == 7)) and \
+        (bank.hand_value <= 6):
+        return True
+      elif ((player_3rd_card.rank == 4 or player_3rd_card.rank == 5)) and \
+        (bank.hand_value <= 5):
+        return True
+      elif ((player_3rd_card.rank == 2 or player_3rd_card.rank == 3)) and \
+        (bank.hand_value <= 4):
+        return True
+      else:
+        return False
+    else:
+      return "Error!" #TODO throw an error
+
 

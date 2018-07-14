@@ -25,12 +25,14 @@ difficulty/complexity.
 
 UPDATES
 - updated baccarat games and objects so an initial game is dealt and scored
+- added 3rd card rules; initial tests reveal bugs
 
 TODO
 * complete HoldEm Class:
   - maybe use turn deal_holdem as a decorator
+
 * baccarat
-  - add additional rules for 3rd card
+  - fix bugs for 3rd card
   - incorporate finalized scoring + clearing of table
   - reshuffle + redeal mechanics
 * other games (ostensibly, should be easy, if classes were designed well...)
