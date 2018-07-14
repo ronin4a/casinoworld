@@ -9,9 +9,8 @@ def join_game(h, num=2):
     h.add_player(p)
 
 def play_game(h):
-  h.deal()
+  h.deal(2)
   print(h)
-
   h.clear_table()
 
 def main():
@@ -20,7 +19,7 @@ def main():
   _PLAY_GAME = True
 
   while (_PLAY_GAME == True):
-    join_game(h, 2)
+    # join_game(h, 2)
     play_game(h)
     continue_playing = input("Do you want to keep playing (Y/N)? ")
     if (continue_playing.lower() == "y"):

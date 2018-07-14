@@ -24,13 +24,16 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- updated holdem.py so a full game is simulated, with user input
+- updated baccarat games and objects so an initial game is dealt and scored
 
 TODO
 * complete HoldEm Class:
   - maybe use turn deal_holdem as a decorator
+* baccarat
+  - add additional rules for 3rd card
+  - incorporate finalized scoring + clearing of table
+  - reshuffle + redeal mechanics
 * other games (ostensibly, should be easy, if classes were designed well...)
-  - simple baccarat game
   - simple blackjack game
 * port logic over to functions (rather than body of main)
 * make a list of exceptions and error checks; include in the Class files

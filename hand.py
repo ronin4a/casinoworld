@@ -3,12 +3,103 @@ from card import Card
 #TODO - restructure Hand vs PokerHand so Hand can be used as a generic class
 class Hand(object):
 
+  """In general, Hand object has two sets of cards - public cards (self.cards)
+     which are shared by a group, and hole cards (__hole_cards) which belong
+     to the Hand and are not shared or exposed to the group."""
+
   def __init__(self):
-    return
+
+    self.__hole_cards = []
+    self.cards = []
+
+  def __str__(self):
+    """Print list of Card objects in __hole_cards."""
+
+    print_cards = []
+    for card in self.__hole_cards:
+      print_cards.append(str(card))
+
+    return("%s" %(print_cards))
+
+
+class BaccaratHand(Hand):
+
+  """Local variables, used for ranking the BaccaratHand."""
+  rank = {'none': 0, # has nothing
+          'pair': 1, # max subranking = 13 (top pair)
+          'two pair': 2, # max subranking = 13 (top pair)
+          'three of a kind': 3, # max subranking = 13 (top card)
+          'straight': 4, # max subranking = 13 (top card)
+          'flush': 5, # max subranking = 4 (top suit)
+          'full house': 6, # max subranking = 13 (top card)
+          'four of a kind': 7, # max subranking = 13 (top card)
+          'straight flush': 8} # max subranking = 52 (top suit + card)
+
+
+  def __init__(self):
+    """Baccarat is a two-player game; thus every initialization is the same.
+       Players joining the game under their unique id will always be tagged
+       Player. There will always be a bank."""
+
+    super().__init__()
+    self.__hole_cards = []
+    self.score = 0
+
+  def __str__(self):
+    """Print list of Card objects in __hole_cards."""
+
+    print_cards = []
+    for card in self.__hole_cards:
+      print_cards.append(str(card))
+
+    return("%s" %(print_cards))
+
+  def add_card(self, card=None, is_hole=True):
+    """Add a Card object as part of this Hand.
+
+       is_hole flag needed to identify cards that are actually owned by the
+       Hand; this is to distinguish these cards from community cards (e.g. the
+       cards on the table in a game of Texas Hold Em)
+
+       Note: The same Card can exist in multiple objects (other Hands, Decks,
+             etc. This flexibility is provided with Hold Em Poker in mind, where
+             Card objects on the Table are shared in multiple Hands between
+             Players.
+       """
+
+    if card == None:
+      return("Error: Adding no cards to hand.")
+
+    if is_hole is True:
+      self.__hole_cards.append(card)
+    self.cards.append(card)
+
+
+  def return_cards(self):
+    """Empty all cards and pop hole cards."""
+    self.cards = []
+    return_hole_cards = []
+    for i in range(0, len(self.__hole_cards)):
+        return_hole_cards.append(self.__hole_cards.pop())
+
+    #TODO check to make sure all self.cards are empty
+    return(return_hole_cards)
+
+
+  def hand_value(self):
+    for card in self.__hole_cards:
+      if card.rank == 14: # Ace
+        self.score += 1
+      elif card.rank >= 10: # 10 or face cards
+        self.score = self.score + 0
+      else:
+        self.score += card.rank
+    return self.score % 10
+
 
 class PokerHand(Hand):
 
-  """Local variables, used for ranking the Hand."""
+  """Local variables, used for ranking the PokerHand."""
 
   rank = {'none': 0, # has nothing
           'pair': 1, # max subranking = 13 (top pair)
@@ -26,8 +117,8 @@ class PokerHand(Hand):
   def __init__(self, cards=None, is_hole=False):
     """Initialize a Hand, which is just a list of Card objects."""
 
+    super().__init__()
     self.__hole_cards = []
-    self.cards = []
 
     if (cards != None):
       if is_hole is True:
@@ -85,6 +176,7 @@ class PokerHand(Hand):
     if is_hole is True:
       self.__hole_cards.append(card)
     self.cards.append(card)
+
 
   def return_cards(self):
     """Empty all cards and pop hole cards."""

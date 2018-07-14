@@ -35,12 +35,12 @@ class Game(object):
 
 
   def add_player(self, p, name=""):
-    """Add player p (represented by Class Hand) to current game. CHeck to
+    """Add player p (represented by Class Hand) to current game. Check to
        make sure player name is unique."""
     if name=="":
       name = "Player" + str(len(self.players) + 1)
       self.players[name] = p
-    elif name in self.players:
+    elif name not in self.players:
       self.players[name] = p
     else:
       print("Player %s already has a hand...whaddya tryin' to pull here?" \
@@ -200,7 +200,6 @@ class HoldEm(Game):
     return winning_player
 
 
-
 class Baccarat(Game):
 
 
@@ -218,26 +217,22 @@ class Baccarat(Game):
     #TODO make sure that each player_id only has one unique Hand
     super().__init__()
 
-    # Each 
-    banker = Hand()
-    player = Hand()
+    banker = BaccaratHand()
+    player = BaccaratHand()
+    if (len(self.players) != 0):
+      for player in self.players:
+        print("\n%s:\n%s" %(player, self.players[player]))
     super().add_player(banker, "Bank")
     super().add_player(player, "Player")
-    super().deal(2)
 
 
   def __str__(self):
     print("\n-------------------------------------------------------")
-    print("%s" %(self.table))
     if (len(self.players) != 0):
       for player in self.players:
-        print("\n%s:\n%s" %(player, self.players[player]))
+        print("\n%s:\n%s\n%s\n" %(player, self.players[player], \
+				  self.players[player].hand_value()))
     return("-------------------------------------------------------\n")
 
   """Basic game mechanics."""
 
-
-  def deal(self):
-    """Deal two cards to each player."""
-    super().deal(2)
-    return "Cards dealt."
