@@ -92,6 +92,7 @@ class BaccaratHand(Hand):
 
 
   def hand_value(self):
+    self.score = 0 # reset score
     for card in self.__hole_cards:
       if card.rank == 14: # Ace
         self.score += 1

@@ -14,8 +14,12 @@ def play_game(h):
   print(h.does_player_get_3rd_card())
   if h.does_player_get_3rd_card() is True:
     h.deal_to("Player")
+    print("\n\nDealt 3rd card to Player:\n\n")
+    print(h)
   if h.does_bank_get_3rd_card() is True:
     h.deal_to("Bank")
+    print("\n\nDealt 3rd card to Bank:\n\n")
+    print(h)
   print(h)
   input()
   h.clear_table()
