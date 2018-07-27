@@ -1,5 +1,16 @@
 from chip import *
 
+"""General class description.
+
+   Entities (whether casino or an individual player, or a table) should have
+   their "bank" account, which is their total bankroll.
+
+   Entities can withdraw amounts from their bankroll and pay out to other
+   banksrolls; these are temporary betting stacks.
+
+   Transfer mechanisms should also be baked in.
+   """
+
 class Bank(object):
   """ Bank holds all the known Chips in the entire casino; at least, the total
       # of Chips available for a card game.
@@ -29,18 +40,6 @@ class Bank(object):
     for denomination, num in self.denoms.items():
       print("$%s chips:\tx%s" %(denomination, num))
     return("Bank currently has $%s in total bankroll." %(self.balance))
-
-  # Issues $amt to player; uses knapsack problem to issue optimal # of chips
-  #TODO testing
-  def issue(self, player, amt):
-
-    to_issue = amt
-    self.balance = bankroll - to_issue
-    denominations = {}
-
-    denominations = self.knapsack(
-
-    player.withdraw(to_issue) #TODO code player
 
 
 class Pot(Bank):

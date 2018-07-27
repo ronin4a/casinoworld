@@ -26,6 +26,11 @@ difficulty/complexity.
 UPDATES
 - baccarat scoring logic passes infinite loop
 
+NEXT
+- incorporate betting
+- incorporate blackjack
+- odds calculations (initial "AI")
+
 TODO
 * baccarat
   - systematic tests for scoring; use a table of all outcomes
@@ -33,8 +38,15 @@ TODO
   - reshuffle + redeal mechanics
 * complete HoldEm Class:
   - maybe use turn deal_holdem as a decorator
+
+* general infrastructure
+  - unique ids for each player, casino, table, etc.; casino and table should
+    have admin rights :=> requires high security
+  - counting and verifying total $$$ in the casino
+
 * other games (ostensibly, should be easy, if classes were designed well...)
   - simple blackjack game
+
 * port logic over to functions (rather than body of main)
 * make a list of exceptions and error checks; include in the Class files
 * unicode cards for display
