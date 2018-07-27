@@ -24,11 +24,11 @@ difficulty/complexity.
 # LATEST UPDATES
 
 UPDATES
-- baccarat scoring works based on manual tests
+- baccarat scoring logic passes infinite loop
 
 TODO
 * baccarat
-  - systematic tests for scoring
+  - systematic tests for scoring; use a table of all outcomes
   - incorporate finalized scoring + clearing of table
   - reshuffle + redeal mechanics
 * complete HoldEm Class:

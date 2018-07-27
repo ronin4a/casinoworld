@@ -1,7 +1,7 @@
 from game import *
 
 _HEADER_ = "------------------------------"
-_TESTING_ = True
+_TESTING_ = False
 _TEST_CONDITION_ = 5
 _TEST_SUBCONDITION_ = 5
 
@@ -136,28 +136,29 @@ def play_game(h):
 
   h.deal(2)
   print(h)
-  input()
   print("Does player get 3rd card? %s" %(h.does_player_get_3rd_card()))
   if h.does_player_get_3rd_card() is True:
     h.deal_to("Player")
-    input()
   print("Does banker get 3rd card? %s" %(h.does_bank_get_3rd_card()))
   if h.does_bank_get_3rd_card() is True:
     h.deal_to("Bank")
-    input()
   print(h)
-  input()
+  print("Winner:%s\nFinal Hand:%s" %(h.find_winners()))
   h.clear_table()
+  print("Table cleared")
+  print(h)
 
 def main():
 
-  h = Baccarat()
   _PLAY_GAME = True
 
   while (_PLAY_GAME == True):
     # join_game(h, 2)
+    print("Starting game....!")
+    h = Baccarat()
     play_game(h)
-    continue_playing = input("Do you want to keep playing (Y/N)? ")
+    # continue_playing = input("Do you want to keep playing (Y/N)? ")
+    continue_playing = "y"
     if (continue_playing.lower() == "y"):
       _PLAY_GAME = True
     else:

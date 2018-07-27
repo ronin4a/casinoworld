@@ -74,7 +74,6 @@ class Game(object):
   def clear_table(self):
     """Settle all bets, clear players from the game."""
     self.players.clear()
-
     return("Game ended.")
 
 
@@ -270,9 +269,15 @@ class Baccarat(Game):
       return True
     elif (bank.hand_value() >= 7):
       return False
+    elif (self.players["Player"].hand_value() == 6) \
+      or (self.players["Player"].hand_value() == 7):
+      return True
     else:
       if (self.does_player_get_3rd_card() is False):
-        return True
+        if (self.players["Player"].hand_value() > 7):
+          return False
+        elif (bank.hand_value == 6) or (bank.hand_value == 5):
+          return True
       """Else player drew; draw/no draw depends on player draw card."""
       player_3rd_card = self.players["Player"].return_3rd_card().rank
       if (player_3rd_card > 8): # Face card or Ace, 8 or 9
@@ -286,3 +291,17 @@ class Baccarat(Game):
         return True
       else:
         return False
+
+
+  def find_winners(self):
+    """Calculate the winner. If tie, return False."""
+    final_bank_score = self.players["Bank"].hand_value()
+    final_player_score = self.players["Player"].hand_value()
+
+    if final_bank_score > final_player_score:
+      return "Bank", self.players["Bank"]
+    elif final_bank_score < final_player_score:
+      return "Player", self.players["Player"]
+    else:
+      return "Tie", False
+
