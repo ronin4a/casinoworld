@@ -254,13 +254,9 @@ class Baccarat(Game):
 	- the value of those cards is between 0 - 5 (inclusive)
 	"""
     player = self.players["Player"]
-    print("Player has value %s\n" %(player.hand_value()))
-    if len(player) > 2:
-      print("Trying to inquire for > 2 card Player hand!")
-      return False
     if player.hand_value() <= 5:
-      print("Player gets another card.")
       return True
+    return False
 
 
   def does_bank_get_3rd_card(self):
@@ -270,30 +266,23 @@ class Baccarat(Game):
         """
     bank = self.players["Bank"]
 
-    if len(bank) > 2:
-      print("Trying to inquire for > 2 card Bank hand!")
-      return False
-    elif (self.does_player_get_3rd_card() is False) and \
-         (bank.hand_value() <= 5):
+    if (bank.hand_value() < 3):
       return True
-    elif (self.does_player_get_3rd_card() is True):
-      player_3rd_card = self.players["Player"].return_3rd_card()
-      if (player_3rd_card.rank >= 9) and (bank.hand_value() <= 3):
+    elif (bank.hand_value() >= 7):
+      return False
+    else:
+      if (self.does_player_get_3rd_card() is False):
         return True
-      elif (player_3rd_card.rank == 8) and (bank.hand_value() <= 6):
+      """Else player drew; draw/no draw depends on player draw card."""
+      player_3rd_card = self.players["Player"].return_3rd_card().rank
+      if (player_3rd_card > 8): # Face card or Ace, 8 or 9
+        return False
+      # player_3rd_card should always be below 8
+      elif (bank.hand_value() == 4) and (player_3rd_card >= 2):
         return True
-      elif ((player_3rd_card.rank == 6 or player_3rd_card.rank == 7)) and \
-        (bank.hand_value <= 6):
+      elif (bank.hand_value() == 5) and (player_3rd_card >= 4):
         return True
-      elif ((player_3rd_card.rank == 4 or player_3rd_card.rank == 5)) and \
-        (bank.hand_value <= 5):
-        return True
-      elif ((player_3rd_card.rank == 2 or player_3rd_card.rank == 3)) and \
-        (bank.hand_value <= 4):
+      elif (bank.hand_value() == 6) and (player_3rd_card >= 6):
         return True
       else:
         return False
-    else:
-      return "Error!" #TODO throw an error
-
-
